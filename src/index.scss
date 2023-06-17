@@ -1,0 +1,39 @@
+@import "~react-toastify/dist/ReactToastify.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&family=Titillium+Web:wght@700&display=swap");
+
+@layer base {
+  body {
+    font-family: "Source Sans Pro", sans-serif;
+    overflow: scroll;
+  }
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+  a {
+    @apply text-theme-green;
+
+    &:hover {
+      @apply text-theme-darkGreen;
+      @apply underline;
+    }
+  }
+
+  .active {
+    position: relative;
+    margin: 0 !important;
+  }
+  .active::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    left: 0%;
+    bottom: 0%;
+    border-bottom: solid 2px #5cb85c;
+  }
+}
