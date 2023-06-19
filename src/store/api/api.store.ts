@@ -8,25 +8,35 @@ import {
   ProfileParams,
   GetArticleResponce,
   GetCommentResponce,
+  ArticleType,
 } from "../../types";
 import { FEED_PAGE_SIZE } from "../../const";
+import { RootState } from "../store";
+import { replaceCachedArticle } from "../../components/utils/router";
 
 export const articleApi = createApi({
   reducerPath: "articleApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://api.realworld.io/api/",
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.userData?.token;
+      if (token) {
+        headers.set("Authorization", `Token ${token}`);
+      }
+    },
   }),
+  tagTypes: ["Articles", "User"],
   endpoints: (builder) => ({
     getGlobalFeed: builder.query<GetGlobalFeedResponce, GlobalFeedParams>({
-      query: ({ page, tag, isPersonal, token }) => ({
-        url: !isPersonal
-          ? `articles?limit=${FEED_PAGE_SIZE}&offset=${page * FEED_PAGE_SIZE}${
-              tag ? `&tag=${tag}` : ""
-            }`
-          : `articles/feed?limit=${FEED_PAGE_SIZE}&offset=${
-              page * FEED_PAGE_SIZE
-            }${tag ? `&tag=${tag}` : ""}`,
-        headers: { Authorization: `Token ${token}` },
+      query: ({ page, tag, isPersonal }) => ({
+        url:
+          !isPersonal || isPersonal == null
+            ? `articles?limit=${FEED_PAGE_SIZE}&offset=${
+                page * FEED_PAGE_SIZE
+              }${tag ? `&tag=${tag}` : ""}`
+            : `articles/feed?limit=${FEED_PAGE_SIZE}&offset=${
+                page * FEED_PAGE_SIZE
+              }${tag ? `&tag=${tag}` : ""}`,
       }),
     }),
     getMyArticles: builder.query<GetGlobalFeedResponce, MyArticlesParams>({
@@ -47,6 +57,24 @@ export const articleApi = createApi({
     getArticleComments: builder.query<GetCommentResponce, string>({
       query: (slug) => `articles/${slug}/comments`,
     }),
+    favorityArticle: builder.mutation<GetArticleResponce, string>({
+      query: (slug) => ({
+        url: `articles/${slug}/favorite`,
+        method: "POST",
+      }),
+      onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
+        await replaceCachedArticle(getState, queryFulfilled, dispatch);
+      },
+    }),
+    unFavorityArticle: builder.mutation<GetArticleResponce, string>({
+      query: (slug) => ({
+        url: `articles/${slug}/favorite`,
+        method: "DELETE",
+      }),
+      onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
+        await replaceCachedArticle(getState, queryFulfilled, dispatch);
+      },
+    }),
   }),
 });
 
@@ -57,4 +85,6 @@ export const {
   useGetProfileQuery,
   useGetArticleQuery,
   useGetArticleCommentsQuery,
+  useFavorityArticleMutation,
+  useUnFavorityArticleMutation,
 } = articleApi;

@@ -4,6 +4,7 @@ import FavourityBtn from "./FavourityBtn";
 import TagList from "./TagList";
 import { ArticleType } from "../types";
 import ArticleUserInfo from "./ArticleUserInfo";
+
 type Props = {
   article?: ArticleType;
 };
@@ -13,7 +14,12 @@ const Article: React.FC<Props> = ({ article }) => {
     <div className="flex w-auto h-auto flex-col mb-10">
       <div className="flex justify-between items-center mb-4">
         <ArticleUserInfo author={article?.author} date={article?.createdAt} />
-        <FavourityBtn text={article?.favoritesCount as number} />
+        <FavourityBtn
+          isFavorited={article?.favorited}
+          type="ArticleFavBtn"
+          text={article?.favoritesCount as number}
+          slug={article?.slug as string}
+        />
       </div>
       <div>
         <Link

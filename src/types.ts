@@ -16,6 +16,7 @@ export interface ArticleType {
   updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
+  id: number;
   author: Author;
 }
 

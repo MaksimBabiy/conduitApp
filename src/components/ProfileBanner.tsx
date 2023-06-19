@@ -1,6 +1,6 @@
 import Container from "./Container";
-import FollowBtn from "./FollowBtn";
 import { GetProfile } from "../types";
+import FavourityBtn from "./FavourityBtn";
 
 type Props = {
   profile: GetProfile;
@@ -22,7 +22,8 @@ items-center text-white "
       </p>
       <Container>
         <div className="flex justify-end text-black mb-4">
-          <FollowBtn
+          <FavourityBtn
+            type="ProfileFollowBtn"
             username={props.profile?.username}
             classname="border-gray-300 border-2 p-1 flex items-center text-gray-400 hover:bg-gray-300 "
           />

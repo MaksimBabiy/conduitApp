@@ -4,7 +4,6 @@ import PopularTags from "./PopularTags";
 import { useGetGlobalFeedQuery } from "../store/api/api.store";
 import { useMatch, useSearchParams } from "react-router-dom";
 import Labels from "./Labels";
-import { useAppSelector } from "../store/store";
 import { routes } from "../routes";
 import { useAuthUser } from "../hooks/useAuthUser";
 
@@ -18,13 +17,11 @@ const Feed = (props: Props) => {
     Number(searchParams.get("page")) || 0
   );
   const { isLogged } = useAuthUser();
-  const userData = useAppSelector((state) => state.auth.userData);
   const { data, isLoading, isError, isFetching } = useGetGlobalFeedQuery({
     page: itemOffset,
     tag: searchParams.get("tag") as string,
     author: "",
     isPersonal: Boolean(isPersonalFeed),
-    token: userData?.token,
   });
 
   if (isLoading) {
