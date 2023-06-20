@@ -7,9 +7,14 @@ import {
 import { useAuthUser } from "../hooks/useAuthUser";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../routes";
+import { LuSettings } from "react-icons/lu";
 
 type Props = {
-  type: "ArticleFavBtn" | "ProfileFollowBtn" | "ArticlePageFavBtn";
+  type:
+    | "ArticleFavBtn"
+    | "ProfileFollowBtn"
+    | "ArticlePageFavBtn"
+    | "ProfileEditBtn";
   text?: number;
   slug?: string;
   username?: string;
@@ -63,6 +68,13 @@ const FavourityBtn: React.FC<Props> = ({
       <button className={classname}>
         {" "}
         <AiOutlinePlus className="mr-1" /> Follow {username}
+      </button>
+    );
+  } else if (type === "ProfileEditBtn") {
+    return (
+      <button className={classname}>
+        {" "}
+        <LuSettings className="mr-1" /> Edit Profile Settings
       </button>
     );
   } else {

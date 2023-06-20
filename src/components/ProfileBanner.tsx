@@ -1,12 +1,15 @@
 import Container from "./Container";
 import { GetProfile } from "../types";
 import FavourityBtn from "./FavourityBtn";
+import { useAuthUser } from "../hooks/useAuthUser";
+import { useGetUrlProfile } from "../hooks/useGetUrlProfile";
 
 type Props = {
   profile: GetProfile;
 };
 
 const ProfileBanner = (props: Props) => {
+  const { isMyProfile } = useGetUrlProfile();
   return (
     <div
       className="w-full bg-gray-100 shadow-md h-auto flex justify-center flex-col
@@ -22,11 +25,19 @@ items-center text-white "
       </p>
       <Container>
         <div className="flex justify-end text-black mb-4">
-          <FavourityBtn
-            type="ProfileFollowBtn"
-            username={props.profile?.username}
-            classname="border-gray-300 border-2 p-1 flex items-center text-gray-400 hover:bg-gray-300 "
-          />
+          {!isMyProfile ? (
+            <FavourityBtn
+              type="ProfileFollowBtn"
+              username={props.profile?.username}
+              classname="border-gray-300 border-2 p-1 flex items-center text-gray-400 hover:bg-gray-300 "
+            />
+          ) : (
+            <FavourityBtn
+              type="ProfileEditBtn"
+              username={props.profile?.username}
+              classname="border-gray-300 border-2 p-1 flex items-center text-gray-400 hover:bg-gray-300 "
+            />
+          )}
         </div>
       </Container>
     </div>

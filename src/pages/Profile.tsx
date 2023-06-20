@@ -11,21 +11,14 @@ import {
 import Container from "../components/Container";
 import Labels from "../components/Labels";
 import { useAppSelector } from "../store/store";
+import { useGetUrlProfile } from "../hooks/useGetUrlProfile";
 
 type Props = {};
 
 const Profile = (props: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { pathname } = useLocation();
-  const [trimmedStr, setTrimmedStr] = useState("");
 
-  useEffect(() => {
-    let startIndex = pathname.indexOf("/@");
-    let endIndex = pathname.indexOf("/", startIndex + 2);
-    if (startIndex !== -1 && endIndex !== -1) {
-      setTrimmedStr(pathname.substring(startIndex + 2, endIndex));
-    }
-  }, [pathname]);
+  const { trimmedStr, pathname } = useGetUrlProfile();
 
   const [itemOffset, setItemOffset] = useState(
     Number(searchParams.get("page")) || 0
