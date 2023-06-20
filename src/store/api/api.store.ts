@@ -44,6 +44,7 @@ export const articleApi = createApi({
         `articles?limit=${FEED_PAGE_SIZE}&offset=${page * FEED_PAGE_SIZE}${
           isFavorited ? `&favorited=${author}` : `&author=${author}`
         }`,
+      providesTags: ["Articles"],
     }),
     getProfile: builder.query<GetGlobalProfile, ProfileParams>({
       query: ({ username }) => `profiles/${username}`,
@@ -65,12 +66,14 @@ export const articleApi = createApi({
       onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
         await replaceCachedArticle(getState, queryFulfilled, dispatch);
       },
+      invalidatesTags: ["Articles"],
     }),
     unFavorityArticle: builder.mutation<GetArticleResponce, string>({
       query: (slug) => ({
         url: `articles/${slug}/favorite`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Articles"],
       onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
         await replaceCachedArticle(getState, queryFulfilled, dispatch);
       },

@@ -14,7 +14,7 @@ const Home = (props: Props) => {
   useEffect(() => {
     dispatch(selectTag("Global Feed"));
   }, []);
-
+  console.log("home render");
   return (
     <div className="pb-8">
       {!isLogged && <Banner />}

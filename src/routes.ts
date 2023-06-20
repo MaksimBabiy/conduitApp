@@ -35,4 +35,8 @@ export const routes: Routes = {
     path: "/articles/:id",
     Element: ArticlePage,
   },
+  settings: {
+    path: "/settings",
+    Element: Home,
+  },
 };

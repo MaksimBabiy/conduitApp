@@ -1,36 +1,39 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProfileBanner from "../components/ProfileBanner";
 
 import ArticlesList from "../components/ArticlesList";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {
   useGetMyArticlesQuery,
   useGetProfileQuery,
 } from "../store/api/api.store";
 import Container from "../components/Container";
 import Labels from "../components/Labels";
-import { useAppSelector } from "../store/store";
 import { useGetUrlProfile } from "../hooks/useGetUrlProfile";
+import { useAppDispatch } from "../store/store";
+import { selectTag } from "../store/slices/feed.slice";
 
 type Props = {};
 
 const Profile = (props: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const dispatch = useAppDispatch();
   const { trimmedStr, pathname } = useGetUrlProfile();
-
   const [itemOffset, setItemOffset] = useState(
     Number(searchParams.get("page")) || 0
   );
 
+  useEffect(() => {
+    dispatch(selectTag("My Articles"));
+  }, []);
+  console.log("profile render", itemOffset);
   const { data: profileData } = useGetProfileQuery(
     {
       username: trimmedStr as string,
     },
     { skip: trimmedStr.length < 1 }
   );
-
   const { data, isLoading, isError, isFetching } = useGetMyArticlesQuery({
     page: itemOffset,
     author: trimmedStr as string,

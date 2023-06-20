@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Container from "../components/Container";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
@@ -6,13 +5,9 @@ import Btn from "../components/Btn";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useSignInMutation } from "../store/api/api.auth";
-import { useAppDispatch } from "../store/store";
-import { setUserData } from "../store/slices/auth.slice";
-
 import { toast } from "react-toastify";
 import { useAuthUser } from "../hooks/useAuthUser";
-import { error } from "console";
+
 type Props = {};
 export type SignInFormValues = {
   email: string;
@@ -31,9 +26,9 @@ const SignIn = (props: Props) => {
     },
     resolver: yupResolver(validationSchema),
   });
-  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
-  const { isLogged, signIn } = useAuthUser();
+  const { signIn } = useAuthUser();
   const onSubmit = async (values: SignInFormValues) => {
     signIn(values)
       .then(() => navigate("/"))

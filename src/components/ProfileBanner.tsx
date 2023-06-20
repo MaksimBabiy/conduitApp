@@ -1,7 +1,6 @@
 import Container from "./Container";
 import { GetProfile } from "../types";
 import FavourityBtn from "./FavourityBtn";
-import { useAuthUser } from "../hooks/useAuthUser";
 import { useGetUrlProfile } from "../hooks/useGetUrlProfile";
 
 type Props = {

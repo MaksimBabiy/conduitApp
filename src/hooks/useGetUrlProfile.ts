@@ -6,7 +6,7 @@ export const useGetUrlProfile = () => {
   const { pathname } = useLocation();
   const [trimmedStr, setTrimmedStr] = useState("");
   const user = useAppSelector((state) => state.auth.userData);
-  const isMyProfile = user?.username == trimmedStr;
+  const isMyProfile = user?.username === trimmedStr;
   useEffect(() => {
     let startIndex = pathname.indexOf("/@");
     let endIndex = pathname.indexOf("/", startIndex + 2);
