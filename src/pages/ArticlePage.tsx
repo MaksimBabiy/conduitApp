@@ -15,7 +15,7 @@ const ArticlePage = (props: Props) => {
   const { data: articleData } = useGetArticleQuery(
     pathname.split(`/articles/`)[1]
   );
-
+  console.log(articleData);
   return articleData ? (
     <>
       {" "}

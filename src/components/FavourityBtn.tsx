@@ -2,7 +2,9 @@ import React from "react";
 import { AiFillHeart, AiOutlinePlus } from "react-icons/ai";
 import {
   useFavorityArticleMutation,
+  useFollowUserMutation,
   useUnFavorityArticleMutation,
+  useUnFollowUserMutation,
 } from "../store/api/api.store";
 import { useAuthUser } from "../hooks/useAuthUser";
 import { useNavigate } from "react-router-dom";
@@ -21,12 +23,14 @@ type Props = {
   classname?: string;
   count?: number;
   isFavorited?: boolean;
+  isFollowing?: boolean;
 };
 
 const FavourityBtn: React.FC<Props> = ({
   text,
   slug,
   type,
+  isFollowing,
   username,
   classname,
   count,
@@ -34,6 +38,8 @@ const FavourityBtn: React.FC<Props> = ({
 }) => {
   const [useFavority] = useFavorityArticleMutation();
   const [useUnFavority] = useUnFavorityArticleMutation();
+  const [useFollow] = useFollowUserMutation();
+  const [useUnFollow] = useUnFollowUserMutation();
   const { isLogged } = useAuthUser();
   const navigate = useNavigate();
   const HandleFavorite = async () => {
@@ -42,6 +48,13 @@ const FavourityBtn: React.FC<Props> = ({
   const UnHandleFavorite = async () => {
     await useUnFavority(slug as string);
   };
+  const FollowUser = async () => {
+    await useFollow(username as string);
+  };
+  const UnFollowUser = async () => {
+    await useUnFollow(username as string);
+  };
+  console.log(isFollowing);
   if (type === "ArticleFavBtn") {
     return (
       <div
@@ -65,9 +78,19 @@ const FavourityBtn: React.FC<Props> = ({
     );
   } else if (type === "ProfileFollowBtn") {
     return (
-      <button className={classname}>
+      <button
+        className={`${classname} ${isFollowing && `bg-gray-200`}`}
+        onClick={() =>
+          isLogged
+            ? !isFollowing
+              ? FollowUser()
+              : UnFollowUser()
+            : navigate(routes.signIn.path)
+        }
+      >
         {" "}
-        <AiOutlinePlus className="mr-1" /> Follow {username}
+        <AiOutlinePlus className="mr-1" />{" "}
+        {isFollowing ? `UnFollow ${username}` : `Follow ${username}`}
       </button>
     );
   } else if (type === "ProfileEditBtn") {
@@ -80,6 +103,13 @@ const FavourityBtn: React.FC<Props> = ({
   } else {
     return (
       <div
+        onClick={() =>
+          isLogged
+            ? !isFavorited
+              ? HandleFavorite()
+              : UnHandleFavorite()
+            : navigate(routes.signIn.path)
+        }
         className={`border-theme-green border text-center text-theme-green flex justify-center items-center ml-2 rounded-sm p-1 cursor-pointer ${
           !isFavorited && `hover:bg-green-300`
         }  ${isFavorited && `bg-theme-green text-white `}`}

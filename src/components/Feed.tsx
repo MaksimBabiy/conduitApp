@@ -24,12 +24,6 @@ const Feed = (props: Props) => {
     isPersonal: Boolean(isPersonalFeed),
   });
 
-  if (isLoading) {
-    return <h1 className="absolute top-[50%] left-[50%]">Loading...</h1>;
-  }
-  if (isFetching) {
-    return <h1 className="absolute top-[50%] left-[50%]">Loading...</h1>;
-  }
   if (isError) {
     return (
       <h1 className="absolute top-[50%] left-[50%]">
@@ -49,16 +43,20 @@ const Feed = (props: Props) => {
               isLogged ? [{ value: "Your feed", to: `/personalFeed` }] : []
             }
           />
-          <ArticlesList
-            isProfile={false}
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-            setItemOffset={setItemOffset}
-            itemOffset={itemOffset}
-            articles={data?.articles!}
-            articlesLength={data?.articlesCount!}
-            itemsPerPage={5}
-          />
+          {isFetching || isLoading ? (
+            <h1>Loading...</h1>
+          ) : (
+            <ArticlesList
+              isProfile={false}
+              searchParams={searchParams}
+              setSearchParams={setSearchParams}
+              setItemOffset={setItemOffset}
+              itemOffset={itemOffset}
+              articles={data?.articles!}
+              articlesLength={data?.articlesCount!}
+              itemsPerPage={5}
+            />
+          )}
         </div>
         <div className="py-4 pl-4 w-1/4">
           <PopularTags

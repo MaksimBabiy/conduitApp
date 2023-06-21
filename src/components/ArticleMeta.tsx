@@ -18,10 +18,12 @@ const ArticleMeta = (props: Props) => {
       </div>
       <FavourityBtn
         type="ProfileFollowBtn"
+        isFollowing={props.article.author.following}
         username={props.article.author.username}
         classname="text-gray-400 hover:bg-gray-200 border text-center flex justify-center items-center ml-2  p-1 cursor-pointer text-sm rounded-sm"
       />
       <FavourityBtn
+        slug={props.article.slug}
         isFavorited={props.article.favorited}
         type="ArticlePageFavBtn"
         count={props.article.favoritesCount}

@@ -40,12 +40,6 @@ const Profile = (props: Props) => {
     isFavorited: pathname.includes("/favorited"),
   });
 
-  if (isLoading) {
-    return <h1 className="absolute top-[50%] left-[50%]">Loading...</h1>;
-  }
-  if (isFetching) {
-    return <h1 className="absolute top-[50%] left-[50%]">Loading...</h1>;
-  }
   if (isError) {
     return (
       <h1 className="absolute top-[50%] left-[50%]">Something wrong...</h1>
@@ -67,16 +61,20 @@ const Profile = (props: Props) => {
               },
             ]}
           />
-          <ArticlesList
-            isProfile={true}
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-            setItemOffset={setItemOffset}
-            itemOffset={itemOffset}
-            articles={data?.articles || []}
-            articlesLength={data?.articlesCount || 0}
-            itemsPerPage={5}
-          />
+          {isFetching || isLoading ? (
+            <h1>Loading...</h1>
+          ) : (
+            <ArticlesList
+              isProfile={true}
+              searchParams={searchParams}
+              setSearchParams={setSearchParams}
+              setItemOffset={setItemOffset}
+              itemOffset={itemOffset}
+              articles={data?.articles || []}
+              articlesLength={data?.articlesCount || 0}
+              itemsPerPage={5}
+            />
+          )}
         </div>
       </Container>
     </>

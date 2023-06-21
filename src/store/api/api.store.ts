@@ -48,15 +48,31 @@ export const articleApi = createApi({
     }),
     getProfile: builder.query<GetGlobalProfile, ProfileParams>({
       query: ({ username }) => `profiles/${username}`,
+      providesTags: ["User"],
     }),
     getGlobalTags: builder.query<GetGlobalTags, void>({
       query: () => `tags`,
     }),
     getArticle: builder.query<GetArticleResponce, string>({
       query: (slug) => `articles/${slug}`,
+      providesTags: ["User", "Articles"],
     }),
     getArticleComments: builder.query<GetCommentResponce, string>({
       query: (slug) => `articles/${slug}/comments`,
+    }),
+    followUser: builder.mutation<GetGlobalProfile, string>({
+      query: (username) => ({
+        url: `/profiles/${username}/follow`,
+        method: "POST",
+      }),
+      invalidatesTags: ["User"],
+    }),
+    unFollowUser: builder.mutation<GetGlobalProfile, string>({
+      query: (username) => ({
+        url: `/profiles/${username}/follow`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["User"],
     }),
     favorityArticle: builder.mutation<GetArticleResponce, string>({
       query: (slug) => ({
@@ -90,4 +106,6 @@ export const {
   useGetArticleCommentsQuery,
   useFavorityArticleMutation,
   useUnFavorityArticleMutation,
+  useFollowUserMutation,
+  useUnFollowUserMutation,
 } = articleApi;
