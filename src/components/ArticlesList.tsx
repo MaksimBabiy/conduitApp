@@ -30,7 +30,7 @@ const ArticlesList: React.FC<Props> = (props) => {
           })
         : seroalizeSearchParams({
             page: String(selected),
-            tag: tag === "Global Feed" ? "" : tag,
+            tag: tag === "Global Feed" || " Your Feed" ? "" : tag,
           })
     );
     window.scrollTo({
@@ -50,6 +50,7 @@ const ArticlesList: React.FC<Props> = (props) => {
         breakLabel="..."
         previousLabel={null}
         nextLabel={null}
+        forcePage={props.itemOffset}
         initialPage={props.itemOffset}
         onPageChange={handlePageClick}
         pageRangeDisplayed={pageCount}

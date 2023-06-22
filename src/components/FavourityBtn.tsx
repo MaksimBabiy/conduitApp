@@ -10,6 +10,7 @@ import { useAuthUser } from "../hooks/useAuthUser";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../routes";
 import { LuSettings } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 type Props = {
   type:
@@ -44,17 +45,21 @@ const FavourityBtn: React.FC<Props> = ({
   const navigate = useNavigate();
   const HandleFavorite = async () => {
     await useFavority(slug as string);
+    toast.success(`You liked article`);
   };
   const UnHandleFavorite = async () => {
     await useUnFavority(slug as string);
+    toast.success(`You unliked article`);
   };
   const FollowUser = async () => {
     await useFollow(username as string);
+    toast.info(`You followed ${username}`);
   };
   const UnFollowUser = async () => {
     await useUnFollow(username as string);
+    toast.info(`You unfollowed ${username}`);
   };
-  console.log(isFollowing);
+
   if (type === "ArticleFavBtn") {
     return (
       <div

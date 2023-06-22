@@ -26,6 +26,7 @@ items-center text-white "
         <div className="flex justify-end text-black mb-4">
           {!isMyProfile ? (
             <FavourityBtn
+              isFollowing={props.profile?.following}
               type="ProfileFollowBtn"
               username={props.profile?.username}
               classname="border-gray-300 border-2 p-1 flex items-center text-gray-400 hover:bg-gray-300 "

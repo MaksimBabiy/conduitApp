@@ -23,7 +23,7 @@ const Feed = (props: Props) => {
     author: "",
     isPersonal: Boolean(isPersonalFeed),
   });
-
+  console.log(itemOffset);
   if (isError) {
     return (
       <h1 className="absolute top-[50%] left-[50%]">
@@ -37,10 +37,11 @@ const Feed = (props: Props) => {
       <div className="flex">
         <div className="py-4 pr-4 w-3/4">
           <Labels
+            setItemOffset={setItemOffset}
             defaultValue="Global Feed"
             defaultLink="/"
             additionalItem={
-              isLogged ? [{ value: "Your feed", to: `/personalFeed` }] : []
+              isLogged ? [{ value: "Your Feed", to: `/personalFeed` }] : []
             }
           />
           {isFetching || isLoading ? (
