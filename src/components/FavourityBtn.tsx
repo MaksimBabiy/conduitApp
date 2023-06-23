@@ -49,7 +49,7 @@ const FavourityBtn: React.FC<Props> = ({
   };
   const UnHandleFavorite = async () => {
     await useUnFavority(slug as string);
-    toast.success(`You unliked article`);
+    toast.warning(`You unliked article`);
   };
   const FollowUser = async () => {
     await useFollow(username as string);
@@ -57,7 +57,7 @@ const FavourityBtn: React.FC<Props> = ({
   };
   const UnFollowUser = async () => {
     await useUnFollow(username as string);
-    toast.info(`You unfollowed ${username}`);
+    toast.warning(`You unfollowed ${username}`);
   };
 
   if (type === "ArticleFavBtn") {

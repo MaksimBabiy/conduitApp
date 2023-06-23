@@ -9,6 +9,8 @@ import {
   GetArticleResponce,
   GetCommentResponce,
   ArticleType,
+  CreateArticleRequest,
+  CreateArticle,
 } from "../../types";
 import { FEED_PAGE_SIZE } from "../../const";
 import { RootState } from "../store";
@@ -38,6 +40,7 @@ export const articleApi = createApi({
                 page * FEED_PAGE_SIZE
               }${tag ? `&tag=${tag}` : ""}`,
       }),
+      providesTags: ["Articles"],
     }),
     getMyArticles: builder.query<GetGlobalFeedResponce, MyArticlesParams>({
       query: ({ page, author, isFavorited = false }) =>
@@ -94,6 +97,16 @@ export const articleApi = createApi({
         await replaceCachedArticle(getState, queryFulfilled, dispatch);
       },
     }),
+    createArticle: builder.mutation<CreateArticleRequest, CreateArticle>({
+      query: (data) => ({
+        url: `articles`,
+        method: "POST",
+        body: {
+          article: data,
+        },
+      }),
+      invalidatesTags: ["Articles"],
+    }),
   }),
 });
 
@@ -108,4 +121,5 @@ export const {
   useUnFavorityArticleMutation,
   useFollowUserMutation,
   useUnFollowUserMutation,
+  useCreateArticleMutation,
 } = articleApi;

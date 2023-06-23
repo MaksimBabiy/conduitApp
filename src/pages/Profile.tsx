@@ -18,16 +18,16 @@ type Props = {};
 
 const Profile = (props: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
   const { trimmedStr, pathname } = useGetUrlProfile();
   const [itemOffset, setItemOffset] = useState(
     Number(searchParams.get("page")) || 0
   );
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(selectTag("My Articles"));
+    window.onpopstate = () => {
+      dispatch(selectTag("My Articles"));
+    };
   }, []);
-  console.log("profile render", itemOffset);
   const { data: profileData } = useGetProfileQuery(
     {
       username: trimmedStr as string,

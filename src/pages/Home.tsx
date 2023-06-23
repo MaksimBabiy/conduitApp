@@ -5,15 +5,20 @@ import Feed from "../components/Feed";
 import { useAppDispatch } from "../store/store";
 import { selectTag } from "../store/slices/feed.slice";
 import { useAuthUser } from "../hooks/useAuthUser";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const Home = (props: Props) => {
-  const dispatch = useAppDispatch();
   const { isLogged } = useAuthUser();
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    dispatch(selectTag("Global Feed"));
+    window.onpopstate = () => {
+      dispatch(selectTag("Global Feed"));
+    };
   }, []);
+
   console.log("home render");
   return (
     <div className="pb-8">

@@ -1,5 +1,6 @@
 import ArticlePage from "./pages/ArticlePage";
 import Home from "./pages/Home";
+import NewArticlePage from "./pages/NewArticlePage";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -38,5 +39,9 @@ export const routes: Routes = {
   settings: {
     path: "/settings",
     Element: Home,
+  },
+  newArticle: {
+    path: "/editor",
+    Element: NewArticlePage,
   },
 };

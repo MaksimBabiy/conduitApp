@@ -70,7 +70,7 @@ const Header: React.FC = (props: Props) => {
               <>
                 <li className="flex justify-center items-center">
                   <NavLink
-                    to="/createArticle"
+                    to="/editor"
                     className={({ isActive }) => isActiveHandler(isActive)}
                   >
                     <p className="flex justify-center items-center">

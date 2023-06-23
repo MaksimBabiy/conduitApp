@@ -4,8 +4,9 @@ type Props = {
   placeholder: ComponentProps<"input">["placeholder"];
   name: ComponentProps<"input">["name"];
   onChange: ComponentProps<"input">["onChange"];
-  onBlur: ComponentProps<"input">["onBlur"];
+  onBlur?: ComponentProps<"input">["onBlur"];
   type?: ComponentProps<"input">["type"];
+  value?: ComponentProps<"input">["value"];
 };
 
 const Input = forwardRef<HTMLInputElement, Props>(({ ...inputProps }, ref) => {

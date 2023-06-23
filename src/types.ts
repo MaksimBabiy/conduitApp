@@ -92,3 +92,12 @@ export interface LoginUserParams {
   email: string;
   password: string;
 }
+export interface CreateArticle {
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
+}
+export interface CreateArticleRequest {
+  article: CreateArticle;
+}
