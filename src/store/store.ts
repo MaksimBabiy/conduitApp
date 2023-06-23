@@ -19,7 +19,7 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "conduit",
   storage,
-  whiteList: [authSlice.name],
+  whiteList: [authSlice.name, feedSlice.name],
 };
 const persistentReducer = persistReducer(
   persistConfig,
