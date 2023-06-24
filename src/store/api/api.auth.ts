@@ -8,7 +8,7 @@ import {
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.realworld.io/api/",
+    baseUrl: "https://node-express-conduit.appspot.com/api/",
   }),
   endpoints: (builder) => ({
     signUp: builder.mutation<SignUpResponce, SignUpResponceOut["user"]>({

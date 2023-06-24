@@ -19,7 +19,7 @@ import { replaceCachedArticle } from "../../components/utils/router";
 export const articleApi = createApi({
   reducerPath: "articleApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.realworld.io/api/",
+    baseUrl: "https://node-express-conduit.appspot.com/api/",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.userData?.token;
       if (token) {
