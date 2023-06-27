@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 type Props = {};
 interface IInput {
   title: string;
@@ -88,8 +89,13 @@ const NewArticlePage = (props: Props) => {
   };
 
   const handleSubmitBtn = async () => {
-    await createArticle(inputChange);
-    navigate("/");
+    await createArticle(inputChange)
+      .unwrap()
+      .then((data) => {
+        toast.success("Створенно нову статтю");
+        navigate(`/articles/${data.article.slug}`);
+      })
+      .catch((err) => toast.error("Не вдалось створити статтю"));
   };
 
   return (

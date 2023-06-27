@@ -5,6 +5,7 @@ import FavourityBtn from "./FavourityBtn";
 
 type Props = {
   article: ArticleType;
+  isMyArticle?: boolean;
 };
 
 const ArticleMeta = (props: Props) => {
@@ -16,12 +17,15 @@ const ArticleMeta = (props: Props) => {
           date={props.article.createdAt}
         />
       </div>
-      <FavourityBtn
-        type="ProfileFollowBtn"
-        isFollowing={props.article.author.following}
-        username={props.article.author.username}
-        classname="text-gray-400 hover:bg-gray-200 border text-center flex justify-center items-center ml-2  p-1 cursor-pointer text-sm rounded-sm"
-      />
+      {!props.isMyArticle && (
+        <FavourityBtn
+          type="ProfileFollowBtn"
+          isFollowing={props.article.author.following}
+          username={props.article.author.username}
+          classname="text-gray-400 hover:bg-gray-200 border text-center flex justify-center items-center ml-2  p-1 cursor-pointer text-sm rounded-sm"
+        />
+      )}
+
       <FavourityBtn
         slug={props.article.slug}
         isFavorited={props.article.favorited}

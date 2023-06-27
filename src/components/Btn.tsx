@@ -11,7 +11,7 @@ const Btn = ({ children, onClick, ...buttonProps }: Props) => {
   return (
     <button
       onClick={onClick}
-      className="bg-theme-green text-white py-3 px-5 rounded-md text-xl hover:bg-green-600 active:bg-theme-green/80"
+      className="bg-theme-green text-white py-3 px-5 rounded-md text-xl hover:bg-green-600 active:bg-theme-green/80 disabled:bg-theme-darkestGray"
       {...buttonProps}
     >
       {children}

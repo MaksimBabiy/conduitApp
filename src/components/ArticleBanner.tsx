@@ -4,6 +4,7 @@ import ArticleMeta from "./ArticleMeta";
 
 type Props = {
   article: ArticleType;
+  isMyArticle: boolean;
 };
 
 const ArticleBanner = (props: Props) => {
@@ -16,7 +17,10 @@ const ArticleBanner = (props: Props) => {
               {props.article.title}
             </h1>
           </div>
-          <ArticleMeta article={props.article} />
+          <ArticleMeta
+            article={props.article}
+            isMyArticle={props.isMyArticle}
+          />
         </div>
       </Container>
     </div>

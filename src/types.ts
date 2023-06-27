@@ -99,5 +99,5 @@ export interface CreateArticle {
   tagList: string[];
 }
 export interface CreateArticleRequest {
-  article: CreateArticle;
+  article: ArticleType;
 }
