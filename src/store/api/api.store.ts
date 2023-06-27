@@ -19,7 +19,7 @@ import { replaceCachedArticle } from "../../components/utils/router";
 export const articleApi = createApi({
   reducerPath: "articleApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://node-express-conduit.appspot.com/api/",
+    baseUrl: "https://api.realworld.io/api/",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.userData?.token;
       if (token) {
@@ -40,7 +40,7 @@ export const articleApi = createApi({
                 page * FEED_PAGE_SIZE
               }${tag ? `&tag=${tag}` : ""}`,
       }),
-      providesTags: ["Articles"],
+      providesTags: ["Articles", "User"],
     }),
     getMyArticles: builder.query<GetGlobalFeedResponce, MyArticlesParams>({
       query: ({ page, author, isFavorited = false }) =>

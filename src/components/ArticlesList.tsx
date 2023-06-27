@@ -23,8 +23,13 @@ const ArticlesList: React.FC<Props> = (props) => {
   const tag = useAppSelector((state) => state.feed.selectedTag);
   const handlePageClick = ({ selected }: { selected: number }) => {
     props.setItemOffset(selected);
+    console.log("213");
     props.setSearchParams(
       props.isProfile
+        ? seroalizeSearchParams({
+            page: String(selected),
+          })
+        : tag === "Global Feed" || " Your Feed"
         ? seroalizeSearchParams({
             page: String(selected),
           })
@@ -51,7 +56,6 @@ const ArticlesList: React.FC<Props> = (props) => {
         previousLabel={null}
         nextLabel={null}
         forcePage={props.itemOffset}
-        initialPage={props.itemOffset}
         onPageChange={handlePageClick}
         pageRangeDisplayed={pageCount}
         pageCount={pageCount}
