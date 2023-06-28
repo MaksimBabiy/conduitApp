@@ -4,9 +4,6 @@ import Container from "../components/Container";
 import Btn from "../components/Btn";
 import { useCreateArticleMutation } from "../store/api/api.store";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 type Props = {};
 interface IInput {

@@ -4,6 +4,7 @@ import NewArticlePage from "./pages/NewArticlePage";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import UpdateArticlePage from "./pages/UpdateArticlePage";
 
 type Routes = Record<string, { path: string; Element: React.FC<any> }>;
 
@@ -43,5 +44,9 @@ export const routes: Routes = {
   newArticle: {
     path: "/editor",
     Element: NewArticlePage,
+  },
+  updateArticle: {
+    path: "/editor/:slug",
+    Element: UpdateArticlePage,
   },
 };

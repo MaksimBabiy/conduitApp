@@ -7,6 +7,7 @@ type Props = {
   onBlur?: ComponentProps<"input">["onBlur"];
   type?: ComponentProps<"input">["type"];
   value?: ComponentProps<"input">["value"];
+  defaultValue?: ComponentProps<"input">["defaultValue"];
 };
 
 const Input = forwardRef<HTMLInputElement, Props>(({ ...inputProps }, ref) => {

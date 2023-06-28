@@ -11,6 +11,7 @@ import {
   ArticleType,
   CreateArticleRequest,
   CreateArticle,
+  EditArticle,
 } from "../../types";
 import { FEED_PAGE_SIZE } from "../../const";
 import { RootState } from "../store";
@@ -82,9 +83,9 @@ export const articleApi = createApi({
         url: `articles/${slug}/favorite`,
         method: "POST",
       }),
-      onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
-        await replaceCachedArticle(getState, queryFulfilled, dispatch);
-      },
+      // onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
+      //   await replaceCachedArticle(getState, queryFulfilled, dispatch);
+      // },
       invalidatesTags: ["Articles"],
     }),
     unFavorityArticle: builder.mutation<GetArticleResponce, string>({
@@ -93,9 +94,9 @@ export const articleApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Articles"],
-      onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
-        await replaceCachedArticle(getState, queryFulfilled, dispatch);
-      },
+      // onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
+      //   await replaceCachedArticle(getState, queryFulfilled, dispatch);
+      // },
     }),
     createArticle: builder.mutation<CreateArticleRequest, CreateArticle>({
       query: (data) => ({
@@ -105,6 +106,27 @@ export const articleApi = createApi({
           article: data,
         },
       }),
+      invalidatesTags: ["Articles"],
+    }),
+    deleteArticle: builder.mutation<void, string>({
+      query: (data) => ({
+        url: `articles/${data}`,
+        method: "DELETE",
+        body: data,
+      }),
+      invalidatesTags: ["Articles"],
+    }),
+    updateArticle: builder.mutation<GetArticleResponce, EditArticle>({
+      query: (args) => {
+        const { slug, title, description, body } = args;
+        return {
+          url: `articles/${slug}`,
+          method: "PUT",
+          body: {
+            article: { title, description, body },
+          },
+        };
+      },
       invalidatesTags: ["Articles"],
     }),
   }),
@@ -122,4 +144,6 @@ export const {
   useFollowUserMutation,
   useUnFollowUserMutation,
   useCreateArticleMutation,
+  useDeleteArticleMutation,
+  useUpdateArticleMutation,
 } = articleApi;

@@ -1,25 +1,63 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import FavourityBtn from "./FavourityBtn";
+import { Link, useNavigate } from "react-router-dom";
+
 import TagList from "./TagList";
 import { ArticleType } from "../types";
 import ArticleUserInfo from "./ArticleUserInfo";
+import CustomBtn from "./CustomBtn";
+import { AiFillHeart } from "react-icons/ai";
+import {
+  useFavorityArticleMutation,
+  useUnFavorityArticleMutation,
+} from "../store/api/api.store";
+import { toast } from "react-toastify";
+import { routes } from "../routes";
+import { useAuthUser } from "../hooks/useAuthUser";
 
 type Props = {
   article?: ArticleType;
 };
 
 const Article: React.FC<Props> = ({ article }) => {
+  const [useFavority] = useFavorityArticleMutation();
+  const [useUnFavority] = useUnFavorityArticleMutation();
+  const { isLogged } = useAuthUser();
+  const navigate = useNavigate();
+  const HandleFavorite = async () => {
+    await useFavority(article?.slug as string);
+    toast.success(`You liked article`);
+  };
+  const UnHandleFavorite = async () => {
+    await useUnFavority(article?.slug as string);
+    toast.warning(`You unliked article`);
+  };
+
   return (
     <div className="flex w-auto h-auto flex-col mb-10">
       <div className="flex justify-between items-center mb-4">
         <ArticleUserInfo author={article?.author} date={article?.createdAt} />
-        <FavourityBtn
+        <CustomBtn
           isFavorited={article?.favorited}
           type="ArticleFavBtn"
-          text={article?.favoritesCount as number}
-          slug={article?.slug as string}
-        />
+          onClick={() =>
+            isLogged
+              ? !article?.favorited
+                ? HandleFavorite()
+                : UnHandleFavorite()
+              : navigate(routes.signIn.path)
+          }
+        >
+          {" "}
+          <AiFillHeart
+            color="#5CB85C"
+            className={`group-hover:fill-white ${
+              article?.favorited && `fill-white`
+            }`}
+          />
+          <p className="text-base group-hover:text-white">
+            {article?.favoritesCount}
+          </p>
+        </CustomBtn>
       </div>
       <div>
         <Link

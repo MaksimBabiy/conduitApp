@@ -101,3 +101,9 @@ export interface CreateArticle {
 export interface CreateArticleRequest {
   article: ArticleType;
 }
+export interface EditArticle {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+}
