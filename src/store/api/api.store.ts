@@ -118,12 +118,12 @@ export const articleApi = createApi({
     }),
     updateArticle: builder.mutation<GetArticleResponce, EditArticle>({
       query: (args) => {
-        const { slug, title, description, body } = args;
+        const { slug, title, description, body, tagList } = args;
         return {
           url: `articles/${slug}`,
           method: "PUT",
           body: {
-            article: { title, description, body },
+            article: { title, description, body, tagList },
           },
         };
       },
