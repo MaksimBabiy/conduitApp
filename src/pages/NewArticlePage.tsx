@@ -5,6 +5,7 @@ import Btn from "../components/Btn";
 import { useCreateArticleMutation } from "../store/api/api.store";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import MDEditor from "@uiw/react-md-editor";
 type Props = {};
 interface IInput {
   title: string;
@@ -47,8 +48,29 @@ const NewArticlePage = (props: Props) => {
       [e.target.name]: true,
     });
   };
+
   const navigate = useNavigate();
   const [createArticle] = useCreateArticleMutation();
+  const TextAreaChange = (e: string) => {
+    setInputChange({
+      ...inputChange,
+      body: e,
+    });
+
+    if (e.length <= 3 && e.length != 0)
+      setFormError({
+        ...formError,
+        body: `body should be more 3`,
+      });
+    else if (e.length > 3) setFormError({ ...formError, body: "" });
+    else
+      setFormError({
+        ...formError,
+        body: `body is required`,
+      });
+
+    setIsDisabled(!Object.values(formError).every((x) => x === ""));
+  };
   const InputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -116,20 +138,20 @@ const NewArticlePage = (props: Props) => {
             onChange={InputChange}
           />
           <Input
-            onBlur={BlurHandler}
             name="description"
             placeholder="What's this article about?"
             onChange={InputChange}
             value={inputChange?.description}
           />
-          <textarea
-            onBlur={BlurHandler}
-            name="body"
-            value={inputChange?.body}
-            placeholder="Write your article (in markdown)"
-            className="w-full px-2 py-1 min-h-[200px] mb-5"
-            onChange={InputChange}
-          />
+          <div data-color-mode="light">
+            <MDEditor
+              textareaProps={{ name: "body" }}
+              className="mb-5"
+              height={400}
+              value={inputChange.body}
+              onChange={(e) => TextAreaChange(e as string)}
+            />
+          </div>
           <Input
             onBlur={BlurHandler}
             name="tagList"

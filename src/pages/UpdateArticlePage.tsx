@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import TagList from "../components/TagList";
+import MDEditor from "@uiw/react-md-editor";
 type Props = {};
 interface IInput {
   title: string;
@@ -26,8 +27,6 @@ interface IInput {
 const UpdateArticlePage = (props: Props) => {
   const { slug } = useParams();
   const { data } = useGetArticleQuery(slug as string);
-
-  console.log(data);
   const [updateArticle] = useUpdateArticleMutation();
   const [inputChange, setInputChange] = useState<IInput>({
     title: data?.article.title as string,
@@ -45,9 +44,6 @@ const UpdateArticlePage = (props: Props) => {
       setInputChange({
         ...inputChange,
         [e.target.name]: e.target.value.replace(/ +/g, " ").split(" "),
-        // .filter((item) => item)
-        // .join(" ")
-        // .split(" "),
       });
     } else {
       setInputChange({
@@ -80,7 +76,7 @@ const UpdateArticlePage = (props: Props) => {
       tagList: inputChange.tagList.filter((item) => item !== e),
     });
   };
-  console.log(inputChange);
+
   return (
     <>
       <Container>
@@ -97,13 +93,20 @@ const UpdateArticlePage = (props: Props) => {
             onChange={InputChange}
             value={inputChange.description}
           />
-          <textarea
-            name="body"
-            value={inputChange.body}
-            placeholder="Write your article (in markdown)"
-            className="w-full px-2 py-1 min-h-[200px] mb-5"
-            onChange={InputChange}
-          />
+          <div data-color-mode="light">
+            <MDEditor
+              textareaProps={{ name: "body" }}
+              className="mb-5"
+              height={400}
+              value={inputChange.body}
+              onChange={(e) =>
+                setInputChange({
+                  ...inputChange,
+                  body: e as string,
+                })
+              }
+            />
+          </div>
           <Input
             name="tagList"
             placeholder="Enter tags"

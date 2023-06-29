@@ -7,6 +7,7 @@ import TagList from "../components/TagList";
 import ArticleMeta from "../components/ArticleMeta";
 import CommentsList from "../components/CommentsList";
 import { useAppSelector } from "../store/store";
+import MDEditor from "@uiw/react-md-editor";
 
 type Props = {};
 
@@ -27,7 +28,9 @@ const ArticlePage = (props: Props) => {
       />
       <Container>
         <div className="my-8 border-b">
-          <p className="text-justify mb-5">{articleData.article.body}</p>
+          <div data-color-mode="light" className="mb-5">
+            <MDEditor.Markdown source={articleData.article.body} />
+          </div>
           <TagList taglist={articleData.article.tagList} classname="mb-5" />
         </div>
         <div className="flex justify-center mb-8">
