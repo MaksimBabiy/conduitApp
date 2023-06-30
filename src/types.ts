@@ -67,6 +67,10 @@ export interface CreateCommentReq {
   slug: string;
   body: string;
 }
+export interface DeleteCommentReq {
+  slug: string;
+  id: number;
+}
 export interface Comment {
   id: number;
   createdAt: string;

@@ -19,7 +19,6 @@ const Home = (props: Props) => {
     };
   }, []);
 
-  console.log("home render");
   return (
     <div className="pb-8">
       {!isLogged && <Banner />}

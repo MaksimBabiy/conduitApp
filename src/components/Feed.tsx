@@ -23,7 +23,7 @@ const Feed = (props: Props) => {
     author: "",
     isPersonal: Boolean(isPersonalFeed),
   });
-  console.log(itemOffset);
+
   if (isError) {
     return (
       <h1 className="absolute top-[50%] left-[50%]">

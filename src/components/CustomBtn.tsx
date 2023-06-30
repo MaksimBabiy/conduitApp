@@ -58,10 +58,10 @@ const CustomBtn = (props: Props) => {
       );
     } else if (props.type === "CreateCommend") {
       setClassName(
-        `text-theme-green bg-theme-green text-white border border-theme-green text-center flex justify-center items-center ml-2  p-1 cursor-pointer text-sm rounded-sm ${
+        `text-theme-green text-white border  text-center flex justify-center items-center ml-2  p-1 cursor-pointer text-sm rounded-sm ${
           props.disabled
-            ? `cursor-not-allowed bg-gray-600 border-gray-600 hover:bg-gray-700 `
-            : ` hover:bg-green-600`
+            ? `cursor-not-allowed bg-gray-600 border-gray-600 hover:bg-gray-700`
+            : ` hover:bg-green-600 bg-theme-green border-theme-green`
         } `
       );
     }

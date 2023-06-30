@@ -13,6 +13,7 @@ import {
   EditArticle,
   CreateCommentRes,
   CreateCommentReq,
+  DeleteCommentReq,
 } from "../../types";
 import { FEED_PAGE_SIZE } from "../../const";
 import { RootState } from "../store";
@@ -143,6 +144,16 @@ export const articleApi = createApi({
       },
       invalidatesTags: ["Articles"],
     }),
+    deleteComment: builder.mutation<void, DeleteCommentReq>({
+      query: (args) => {
+        const { slug, id } = args;
+        return {
+          url: `articles/${slug}/comments/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["Articles"],
+    }),
   }),
 });
 
@@ -161,4 +172,5 @@ export const {
   useDeleteArticleMutation,
   useUpdateArticleMutation,
   useCreateCommentMutation,
+  useDeleteCommentMutation,
 } = articleApi;

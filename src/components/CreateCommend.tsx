@@ -30,7 +30,7 @@ const CreateCommend = (props: Props) => {
         placeholder="Write a comment..."
         className="border-2 border-gray-200 p-5 rounded-md w-[550px] m-0"
       />
-      <div className="px-2 pb-2 flex justify-between">
+      <div className="px-5 pb-2 flex justify-between">
         <img src={userData?.image} alt="" className="w-[30px] rounded-full" />
         <CustomBtn
           disabled={textAreaInput.length < 1}

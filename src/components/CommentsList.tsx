@@ -1,5 +1,5 @@
 import { useGetArticleCommentsQuery } from "../store/api/api.store";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ArticleCommend from "./ArticleCommend";
 import { useAuthUser } from "../hooks/useAuthUser";
 import CreateCommend from "./CreateCommend";
@@ -8,10 +8,10 @@ type Props = {};
 
 const CommentsList = (props: Props) => {
   const { pathname } = useLocation();
+
   const { data: commentsData } = useGetArticleCommentsQuery(
     pathname.split(`/articles/`)[1]
   );
-  console.log(commentsData);
   const { isLogged } = useAuthUser();
   return (
     <div className="flex flex-col justify-center items-center">
@@ -26,7 +26,11 @@ const CommentsList = (props: Props) => {
       )}
       <CreateCommend slug={pathname.split(`/articles/`)[1]} />
       {commentsData?.comments.map((item, index) => (
-        <ArticleCommend comment={item} key={index} />
+        <ArticleCommend
+          comment={item}
+          key={index}
+          slug={pathname.split(`/articles/`)[1]}
+        />
       ))}
     </div>
   );
