@@ -7,11 +7,14 @@ type Props = {
   onClick?: ComponentProps<"button">["onClick"];
 };
 
-const Btn = ({ children, onClick, ...buttonProps }: Props) => {
+const Btn = ({ children, disabled, onClick, ...buttonProps }: Props) => {
   return (
     <button
       onClick={onClick}
-      className="bg-theme-green text-white py-3 px-5 rounded-md text-xl hover:bg-green-600 active:bg-theme-green/80 disabled:bg-theme-darkestGray"
+      disabled={disabled}
+      className={`bg-theme-green text-white py-3 px-5 rounded-md text-xl hover:bg-green-600 active:bg-theme-green/80 disabled:bg-theme-darkestGray ${
+        disabled && `cursor-not-allowed`
+      }`}
       {...buttonProps}
     >
       {children}

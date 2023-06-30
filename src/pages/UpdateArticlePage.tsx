@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Input from "../components/Input";
 import Container from "../components/Container";
 import Btn from "../components/Btn";
 import {
-  useCreateArticleMutation,
   useGetArticleQuery,
   useUpdateArticleMutation,
 } from "../store/api/api.store";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import TagList from "../components/TagList";
 import MDEditor from "@uiw/react-md-editor";

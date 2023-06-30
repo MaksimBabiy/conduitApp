@@ -7,7 +7,7 @@ type Props = {
 
 const ArticleCommend = (props: Props) => {
   return (
-    <div className="border rounded-md mb-5">
+    <div className="border rounded-md mb-5 w-[550px]">
       <div className="p-5 text-justify">{props.comment.body}</div>
       <div className="px-5 py-3 border-t bg-theme-pageHoverBg">
         <ArticleUserInfo

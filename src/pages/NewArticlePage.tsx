@@ -57,7 +57,7 @@ const NewArticlePage = (props: Props) => {
       body: e,
     });
 
-    if (e.length <= 3 && e.length != 0)
+    if (e.length <= 3 && e.length !== 0)
       setFormError({
         ...formError,
         body: `body should be more 3`,
@@ -91,7 +91,7 @@ const NewArticlePage = (props: Props) => {
       });
     }
 
-    if (e.target.value.length <= 3 && e.target.value.length != 0)
+    if (e.target.value.length <= 3 && e.target.value.length !== 0)
       setFormError({
         ...formError,
         [e.target.name]: `${e.target.name} should be more 3`,

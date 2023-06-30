@@ -8,14 +8,14 @@ import {
   ProfileParams,
   GetArticleResponce,
   GetCommentResponce,
-  ArticleType,
   CreateArticleRequest,
   CreateArticle,
   EditArticle,
+  CreateCommentRes,
+  CreateCommentReq,
 } from "../../types";
 import { FEED_PAGE_SIZE } from "../../const";
 import { RootState } from "../store";
-import { replaceCachedArticle } from "../../components/utils/router";
 
 export const articleApi = createApi({
   reducerPath: "articleApi",
@@ -63,6 +63,7 @@ export const articleApi = createApi({
     }),
     getArticleComments: builder.query<GetCommentResponce, string>({
       query: (slug) => `articles/${slug}/comments`,
+      providesTags: ["Articles"],
     }),
     followUser: builder.mutation<GetGlobalProfile, string>({
       query: (username) => ({
@@ -129,6 +130,19 @@ export const articleApi = createApi({
       },
       invalidatesTags: ["Articles"],
     }),
+    createComment: builder.mutation<CreateCommentRes, CreateCommentReq>({
+      query: (args) => {
+        const { slug, body } = args;
+        return {
+          url: `articles/${slug}/comments`,
+          method: "POST",
+          body: {
+            comment: { body },
+          },
+        };
+      },
+      invalidatesTags: ["Articles"],
+    }),
   }),
 });
 
@@ -146,4 +160,5 @@ export const {
   useCreateArticleMutation,
   useDeleteArticleMutation,
   useUpdateArticleMutation,
+  useCreateCommentMutation,
 } = articleApi;

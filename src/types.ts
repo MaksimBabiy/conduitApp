@@ -60,7 +60,13 @@ export interface GetProfile {
 export interface GetCommentResponce {
   comments: Comment[];
 }
-
+export interface CreateCommentRes {
+  comment: Comment;
+}
+export interface CreateCommentReq {
+  slug: string;
+  body: string;
+}
 export interface Comment {
   id: number;
   createdAt: string;

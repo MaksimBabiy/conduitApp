@@ -7,7 +7,8 @@ type Props = {
     | "ArticlePageFavBtn"
     | "ProfileEditBtn"
     | "ArticleEditBtn"
-    | "ArticleDeleteBtn";
+    | "ArticleDeleteBtn"
+    | "CreateCommend";
   slug?: string;
   username?: string;
   classname?: string;
@@ -15,6 +16,7 @@ type Props = {
   isFavorited?: boolean;
   isFollowing?: boolean;
   children: React.ReactNode;
+  disabled?: ComponentProps<"button">["disabled"];
   icon?: React.ReactNode;
   onClick?: ComponentProps<"button">["onClick"];
 };
@@ -54,10 +56,22 @@ const CustomBtn = (props: Props) => {
       setClassName(
         "text-red-500 hover:bg-red-500 border border-red-500 hover:text-white text-center flex justify-center items-center ml-2  p-1 cursor-pointer text-sm rounded-sm"
       );
+    } else if (props.type === "CreateCommend") {
+      setClassName(
+        `text-theme-green bg-theme-green text-white border border-theme-green text-center flex justify-center items-center ml-2  p-1 cursor-pointer text-sm rounded-sm ${
+          props.disabled
+            ? `cursor-not-allowed bg-gray-600 border-gray-600 hover:bg-gray-700 `
+            : ` hover:bg-green-600`
+        } `
+      );
     }
   }, [props]);
   return (
-    <button className={className} onClick={props.onClick}>
+    <button
+      className={className}
+      onClick={props.onClick}
+      disabled={props.disabled}
+    >
       {props.icon}
       {props.children}
     </button>
