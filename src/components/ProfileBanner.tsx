@@ -41,7 +41,7 @@ items-center text-white "
       <img
         src={props.profile?.image}
         alt="img"
-        className="w-[110px] rounded-full mt-10"
+        className="w-[110px] h-[110px] rounded-full mt-10"
       />
       <p className="text-2xl mb-4 mt-4 text-black font-bold">
         {props.profile?.username}

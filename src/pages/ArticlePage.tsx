@@ -1,7 +1,7 @@
 import React from "react";
 import ArticleBanner from "../components/ArticleBanner";
 import { useGetArticleQuery } from "../store/api/api.store";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Container from "../components/Container";
 import TagList from "../components/TagList";
 import ArticleMeta from "../components/ArticleMeta";

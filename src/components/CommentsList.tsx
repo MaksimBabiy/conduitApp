@@ -1,5 +1,5 @@
 import { useGetArticleCommentsQuery } from "../store/api/api.store";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ArticleCommend from "./ArticleCommend";
 import { useAuthUser } from "../hooks/useAuthUser";
 import CreateCommend from "./CreateCommend";

@@ -15,6 +15,7 @@ import {
   persistStore,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { uploadApi } from "./api/api.upload";
 
 const persistConfig = {
   key: "conduit",
@@ -28,6 +29,7 @@ const persistentReducer = persistReducer(
     [feedSlice.name]: feedSlice.reducer,
     [authSlice.name]: authSlice.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [uploadApi.reducerPath]: uploadApi.reducer,
   })
 );
 
@@ -38,7 +40,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(articleApi.middleware, authApi.middleware),
+    }).concat(articleApi.middleware, authApi.middleware, uploadApi.middleware),
 });
 export const persistedStore = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;

@@ -118,3 +118,7 @@ export interface EditArticle {
   body: string;
   tagList: string[];
 }
+
+export interface UploadImage {
+  image: string;
+}

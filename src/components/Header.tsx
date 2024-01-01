@@ -100,7 +100,7 @@ const Header: React.FC = (props: Props) => {
                       {" "}
                       <p className="mr-1"> {userData?.username}</p>
                       <img
-                        className="w-[30px] mr-1 rounded-full "
+                        className="w-[30px] h-[30px] mr-1 rounded-full "
                         src={userData?.image}
                         alt=""
                       />
